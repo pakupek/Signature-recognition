@@ -27,6 +27,8 @@ def con_img_gray_scale():
                 if img is None:
                     raise ValueError("Nie udało wczytać obrazu")  
 
+                img = cv2.resize(img, (512, 128), interpolation=cv2.INTER_AREA)
+
                 _, binary = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
                 binary_bool = binary > 0
@@ -39,7 +41,6 @@ def con_img_gray_scale():
                 features = extract_features(skeleton_uint8)
                 label = filename[6].upper()
                 rows.append([label] + list(features.values()))
-                print_features(features, filename)
 
 
             except Exception as e:
